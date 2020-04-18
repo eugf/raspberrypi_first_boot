@@ -1,6 +1,7 @@
 #!/bin/bash
 #eugf/raspberrypi_first_boot
 #Updated: 20200418
+#NOTE: This is very much a WIP at the moment, I'm filling out the skeleton of this script and it's nowhere near ready for production
 
 #TODO: This looks really bad on a VM, change?
 echo "#################################################"
