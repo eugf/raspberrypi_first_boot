@@ -1,12 +1,18 @@
 #!/bin/bash
 #eugf/raspberrypi_first_boot
-#Updated: 20200416
+#Updated: 20200418
 
+#TODO: This looks really bad on a VM, change?
 echo "#################################################"
 echo "~~~~~~~~~~~~~~~~~~INITIALIZING~~~~~~~~~~~~~~~~~~"
 echo "#################################################"
 
+#TODO: Change keyboard localization ASAP, it's currently set to GB
+echo "Please run the command 'raspi-config' prior to running this script and change the keyboard settings"
+#TODO: option to run it here???
+
 #Name the new user account
+echo "Enter new username: "
 read $my_name
 sudo adduser $my_name
 
