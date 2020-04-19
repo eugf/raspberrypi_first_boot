@@ -34,7 +34,14 @@ echo "Your new account has been created"
 sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi $my_name
 #Manual test to see if sudo works
 sudo su - $my_name
-#TODO: check that it has changed
+#Check that sudo works for new user account
+if [$whoami == $my_name]
+then
+  echo "Sudo permissions granted"
+else
+  echo "Sudo permissions failed, please try again"
+  #TODO: exit script
+fi
 
 #Cleanup procedures
 #Kill pi user
