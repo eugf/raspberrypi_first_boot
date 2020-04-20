@@ -51,8 +51,13 @@ fi
 #Cleanup procedures
 #Kill pi user
 sudo pkill -u pi
+
+#
+#
+#
+
 #TODO: logout, reboot, login to new user account
-#TODO: how to have variables survive a reboot? otherwise they will be cleared upon terminal exit, and how to have the script run upon next boot just once?
+#TODO: How to have variables survive a reboot? otherwise they will be cleared upon terminal exit, and how to have the script run upon next boot just once? Might split this part off as a part2 if I can't
 sudo reboot
 #Delete the default pi user
 sudo deluser pi
