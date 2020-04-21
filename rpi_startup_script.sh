@@ -21,6 +21,7 @@ read -p "Enter password: " MY_PASS1
 read -p "Please confirm password: " MY_PASS2
 
 #Check if passwords match
+#TODO: ERROR here, supposedly due to read command, but shouldn't be
 if [$MY_PASS1 == $MY_PASS2]
 then
   echo "Password confirmed!"
