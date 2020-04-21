@@ -14,34 +14,32 @@ echo "Please run the command 'sudo raspi-config' prior to running this script an
 #4 Localisation Options > I3 Change Keyboard Layout > Generic 105-key PC (intl.) > Other > English (US) > The default for the keyboard layout > No compose key > No > TAB > TAB > Finish
 
 #Name the new user account
-read -p "Enter new username: " MY_NAME
+read -p "Enter new username: " MYNAME
 
 #Give new user account a password
-read -p "Enter password: " MY_PASS1
-read -p "Please confirm password: " MY_PASS2
+read -p "Enter password: " MYPASS1
+read -p "Please confirm password: " MYPASS2
 
 #Check if passwords match
-#TODO: ERROR here, supposedly due to read command, but shouldn't be
-if [$MY_PASS1 == $MY_PASS2]
-then
+if [ $MYPASS1 == $MYPASS2 ]; then
   echo "Password confirmed!"
 else
-  read -p "Enter password: " MY_PASS1
-  read -p "Please confirm password: " MY_PASS2
+  read -p "Enter password: " MYPASS1
+  read -p "Please confirm password: " MYPASS2
   #TODO: CANCEL SCRIPT
 fi
 
 #Create new user account and password
-sudo adduser $MY_NAME
+sudo adduser $MYNAME
 #TODO: enter the password 2x, enter 5x, Y
 echo "Your new account has been created"
 
 #Upgrade new user acount with sudo permissions
-sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi $MY_NAME
+sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi $MYNAME
 #Test to see if sudo works
-sudo su - $MY_NAME
+sudo su - $MYNAME
 #Check that sudo works for new user account
-if [$whoami == $MY_NAME]
+if [$whoami == $MYNAME]
 then
   echo "Sudo permissions granted"
 else
@@ -69,4 +67,4 @@ sudo deluser -remove-home pi
 sudo nano /etc/sudoers.d/010_pi-nopasswd
 #TODO: change this line to have your new username
 #I'd say sudo touch command to create a new file and replace it
-#$MY_NAME ALL=(ALL) PASSWD: ALL
+#$MYNAME ALL=(ALL) PASSWD: ALL
