@@ -40,7 +40,7 @@ sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,
 #Test to see if sudo works
 sudo su - $MYNAME
 #Check that sudo works for new user account
-if [ $whoami == $MYNAME ]; then
+if [ $(whoami) == $MYNAME ]; then
   echo "Sudo permissions granted"
 else
   echo "Sudo permissions failed, please try again"
