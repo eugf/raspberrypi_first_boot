@@ -1,6 +1,6 @@
 #!/bin/bash
+#UPDATED: 20200421
 #eugf/raspberrypi_first_boot
-#Updated: 20200420
 #NOTE: This is very much a WIP at the moment, I'm filling out the skeleton of this script and it's nowhere near ready for production
 
 echo "#################################################"
@@ -27,6 +27,7 @@ else
   read -p "Enter password: " MYPASS1
   read -p "Please confirm password: " MYPASS2
   #TODO: CANCEL SCRIPT
+  #TODO: figure a better way to do this loop
 fi
 
 #Create new user account and password
@@ -39,12 +40,12 @@ sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,
 #Test to see if sudo works
 sudo su - $MYNAME
 #Check that sudo works for new user account
-if [$whoami == $MYNAME]
-then
+if [ $whoami == $MYNAME ]; then
   echo "Sudo permissions granted"
 else
   echo "Sudo permissions failed, please try again"
   #TODO: cancel script
+  #TODO: figure a better way to do this loop
 fi
 
 #Cleanup procedures
