@@ -1,5 +1,5 @@
 #!/bin/bash
-#UPDATED: 20200421
+#UPDATED: 20200422
 #eugf/raspberrypi_first_boot
 #NOTE: This is very much a WIP at the moment, I'm filling out the skeleton of this script and it's nowhere near ready for production
 
@@ -8,8 +8,20 @@ echo "~~~~~~~~~~~~~~~~~~INITIALIZING~~~~~~~~~~~~~~~~~~"
 echo "#################################################"
 
 #TODO: Change keyboard localization ASAP (it's set to GB by default)
-echo "Please run the command 'sudo raspi-config' prior to running this script and change the keyboard settings"
-#TODO: option to run it here???
+#read -p "Raspberry Pi keyboard layout defaults to Great Britain. Please run the command 'sudo raspi-config' before continuing and change the keyboard settings to match your layout. Have you already run this? (y/n)" YESNO
+
+#TODO: nested if loops, or check up how to take y/n responses
+if [ $YESNO == y ]; then
+  echo "You may proceed"
+elif [ $YESNO == n ]; then
+  echo "Starting Raspberry Pi configuration"
+  sudo raspi-config
+else
+  echo "Please try again"
+  exit
+fi
+
+#TODO: can I automate this part?
 #This works for me:
 #4 Localisation Options > I3 Change Keyboard Layout > Generic 105-key PC (intl.) > Other > English (US) > The default for the keyboard layout > No compose key > No > TAB > TAB > Finish
 
@@ -24,10 +36,11 @@ read -p "Please confirm password: " MYPASS2
 if [ $MYPASS1 == $MYPASS2 ]; then
   echo "Password confirmed!"
 else
-  read -p "Enter password: " MYPASS1
-  read -p "Please confirm password: " MYPASS2
-  #TODO: CANCEL SCRIPT
-  #TODO: figure a better way to do this loop
+  echo "Please try again"
+  exit
+#  read -p "Enter password: " MYPASS1
+#  read -p "Please confirm password: " MYPASS2
+  #TODO: figure a better way to do this loop, elif back in if it fails, else exit after 3x
 fi
 
 #Create new user account and password
@@ -37,15 +50,14 @@ echo "Your new account has been created"
 
 #Upgrade new user acount with sudo permissions
 sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi $MYNAME
-#Test to see if sudo works
+
+#Test if sudo works for new user account
 sudo su - $MYNAME
-#Check that sudo works for new user account
 if [ $(whoami) == $MYNAME ]; then
   echo "Sudo permissions granted"
 else
   echo "Sudo permissions failed, please try again"
-  #TODO: cancel script
-  #TODO: figure a better way to do this loop
+  exit
 fi
 
 #Cleanup procedures
@@ -69,3 +81,5 @@ sudo nano /etc/sudoers.d/010_pi-nopasswd
 #TODO: change this line to have your new username
 #I'd say sudo touch command to create a new file and replace it
 #$MYNAME ALL=(ALL) PASSWD: ALL
+#TODO: delete any files this script created
+#exit
