@@ -7,7 +7,8 @@ echo "#################################################"
 echo "~~~~~~~~~~~~~~~~~~INITIALIZING~~~~~~~~~~~~~~~~~~"
 echo "#################################################"
 
-#TODO: Change keyboard localization ASAP (it's set to GB by default)
+#SECTION WORKS -- TESTED -- REMOVE LATER
+#Change keyboard localization ASAP (it's set to GB by default)
 read -p "Raspberry Pi keyboard layout defaults to Great Britain (GB). Are you in GB? If not in GB, please enter no and change keyboard layout to match yours. (y/n) " YESNO
 if [ $YESNO == y ]; then
   echo "You may proceed"
@@ -21,13 +22,15 @@ else
   exit
 fi
 
-#TODO: can I automate this part?
+#TODO: automate this as a separate config file to take inputs?
 #This works for me:
 #4 Localisation Options > I3 Change Keyboard Layout > Generic 105-key PC (intl.) > Other > English (US) > The default for the keyboard layout > No compose key > No > TAB > TAB > Finish
 
+#SECTION WORKS -- TESTED -- REMOVE LATER
 #Name the new user account
 read -p "Enter new username: " MYNAME
 
+#SECTION WORKS -- TESTED -- REMOVE LATER
 #Give new user account a password
 MYPASS1=1
 MYPASS2=2
@@ -43,14 +46,15 @@ do
   fi
 done
 
+#TODO: needs more work below
 #Create new user account and password
 sudo adduser $MYNAME
 #TODO: enter the password 2x, enter 5x, Y
 echo "Your new account has been created"
 
+#SECTION WORKS -- TESTED -- REMOVE LATER
 #Upgrade new user acount with sudo permissions
 sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi $MYNAME
-
 #Test if sudo works for new user account
 sudo su - $MYNAME
 if [ $(whoami) == $MYNAME ]; then
