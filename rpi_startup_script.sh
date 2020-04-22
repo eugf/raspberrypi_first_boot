@@ -8,16 +8,16 @@ echo "~~~~~~~~~~~~~~~~~~INITIALIZING~~~~~~~~~~~~~~~~~~"
 echo "#################################################"
 
 #TODO: Change keyboard localization ASAP (it's set to GB by default)
-#read -p "Raspberry Pi keyboard layout defaults to Great Britain. Please run the command 'sudo raspi-config' before continuing and change the keyboard settings to match your layout. Have you already run this? (y/n)" YESNO
-
-#TODO: nested if loops, or check up how to take y/n responses
+read -p "Raspberry Pi keyboard layout defaults to Great Britain (GB). Are you in GB? If not in GB, please enter no and change keyboard layout to match yours. (y/n) " YESNO
 if [ $YESNO == y ]; then
   echo "You may proceed"
 elif [ $YESNO == n ]; then
   echo "Starting Raspberry Pi configuration"
+  sleep 1
   sudo raspi-config
 else
   echo "Please try again"
+  sleep 10
   exit
 fi
 
@@ -29,19 +29,19 @@ fi
 read -p "Enter new username: " MYNAME
 
 #Give new user account a password
-read -p "Enter password: " MYPASS1
-read -p "Please confirm password: " MYPASS2
-
-#Check if passwords match
-if [ $MYPASS1 == $MYPASS2 ]; then
-  echo "Password confirmed!"
-else
-  echo "Please try again"
-  exit
-#  read -p "Enter password: " MYPASS1
-#  read -p "Please confirm password: " MYPASS2
-  #TODO: figure a better way to do this loop, elif back in if it fails, else exit after 3x
-fi
+MYPASS1=1
+MYPASS2=2
+while [ $MYPASS1 != $MYPASS2 ]
+do
+  echo "Please enter desired password for new user account"
+  read -p "Enter password: " MYPASS1
+  read -p "Confirm password: " MYPASS2
+  if [ $MYPASS1 == $MYPASS2 ]; then
+    echo "Password confirmed"
+    sleep 1
+    break
+  fi
+done
 
 #Create new user account and password
 sudo adduser $MYNAME
@@ -57,6 +57,7 @@ if [ $(whoami) == $MYNAME ]; then
   echo "Sudo permissions granted"
 else
   echo "Sudo permissions failed, please try again"
+  sleep 10
   exit
 fi
 
@@ -82,4 +83,6 @@ sudo nano /etc/sudoers.d/010_pi-nopasswd
 #I'd say sudo touch command to create a new file and replace it
 #$MYNAME ALL=(ALL) PASSWD: ALL
 #TODO: delete any files this script created
+#echo "You are now setup, exiting in 10 seconds"
+#sleep 10
 #exit
