@@ -22,9 +22,11 @@ else
   exit
 fi
 
-#TODO: automate this as a separate config file to take inputs?
-#This works for me:
-#4 Localisation Options > I3 Change Keyboard Layout > Generic 105-key PC (intl.) > Other > English (US) > The default for the keyboard layout > No compose key > No > TAB > TAB > Finish
+#SECTION WORKS -- TESTED -- REMOVE LATER
+#TODO: Automate this to override the above question?
+#Minimum raspi-config needed to change keyboard to US layout
+layout=us
+sudo raspi-config nonint do_configure_keyboard $layout
 
 #SECTION WORKS -- TESTED -- REMOVE LATER
 #Name the new user account
