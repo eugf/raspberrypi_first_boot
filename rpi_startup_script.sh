@@ -24,9 +24,10 @@ fi
 
 #SECTION WORKS -- TESTED -- REMOVE LATER
 #TODO: Automate this to override the above question?
-#Minimum raspi-config needed to change keyboard to US layout
-layout=us
-sudo raspi-config nonint do_configure_keyboard $layout
+#TODO: Expansion potential as a separate personal config file or cutomizable script
+#Minimum raspi-config needed to change keyboard to US layout. If you want to use this section you can comment out the above manual raspi-config section
+#layout=us
+#sudo raspi-config nonint do_configure_keyboard $layout
 
 #SECTION WORKS -- TESTED -- REMOVE LATER
 #Name the new user account
@@ -48,7 +49,7 @@ do
   fi
 done
 
-#TODO: needs more work below
+#TODO: needs more work below ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Create new user account and password
 sudo adduser $MYNAME
 #TODO: enter the password 2x, enter 5x, Y
